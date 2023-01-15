@@ -1,0 +1,14 @@
+// generate vscode dart launch
+// https://dartcode.org/docs/editor/debugging/
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Dart",
+            "request": "launch",
+            "type": "dart",
+            "program": "bin/main.dart",
+            "console": "terminal"
+        }
+    ]
+}
