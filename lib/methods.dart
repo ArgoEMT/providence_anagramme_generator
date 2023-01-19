@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:providence_anagramme_generator/utils/utils.dart';
+
 import 'utils/files_names.dart';
 
 enum MethodLocal {
@@ -43,21 +45,7 @@ enum MethodLocal {
   }
 }
 
-/// Get a word from the console
-String getWordFromConsole() {
-  String? word = stdin.readLineSync();
-  if (word == null) throw Exception('No word entered');
 
-  if (word.contains(' ')) {
-    throw Exception('Please enter only one word');
-  }
-
-  if (checkForIllegalCharacters(word)) {
-    throw Exception('Please enter a word with letters only');
-  }
-
-  return word;
-}
 
 /// Generate all anagrams of a word
 List<String> generateAnagrams(String word) {
@@ -108,57 +96,3 @@ List<String> clearDictionary(List<String> dictionary) {
   return dictionary;
 }
 
-/// Check illegal characters in a word
-/// Return true if the word contains illegal characters
-/// Return false if the word doesn't contain illegal characters
-bool checkForIllegalCharacters(String word) {
-  final illegalList = [
-    '!',
-    '"',
-    '#',
-    '\$',
-    '%',
-    '&',
-    '\'',
-    '(',
-    ')',
-    '*',
-    '+',
-    ',',
-    '-',
-    '.',
-    '/',
-    ':',
-    ';',
-    '<',
-    '=',
-    '>',
-    '?',
-    '@',
-    '[',
-    '\\',
-    ']',
-    '^',
-    ' ',
-    '_',
-    '`',
-    '{',
-    '|',
-    '}',
-    '~',
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-  ];
-  for (var i = 0; i < word.length; i++) {
-    if (illegalList.contains(word[i])) return true;
-  }
-  return false;
-}

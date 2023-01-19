@@ -1,19 +1,22 @@
 import 'package:providence_anagramme_generator/methods.dart';
 import 'package:providence_anagramme_generator/utils/utils.dart';
 
-void main(List<String> arguments) {
+Future main(List<String> arguments) async {
   print('------------------------------------');
   print('Welcome to the Providence Anagramme Generator');
   print('------------------------------------');
+  print('Do you want to force the files generation ? (y/n)');
+  final forceGeneration = wordToBool(getWordFromConsole());
   print('Generating files...');
-  cleanCsv(force: true);
-  cleanCsv(force: true, local: MethodLocal.en);
+  if (forceGeneration) print('Forcing generation');
+  await cleanCsv();
+  await cleanCsv(local: MethodLocal.en);
   print('Files generated');
   print('------------------------------------');
   print('Please enter a word to generate anagrams:');
   final userWord = getWordFromConsole();
   try {
-    checkForIllegalCharacters(userWord);
+    checkForIllegalCharacters(userWord!);
   } on Exception catch (e) {
     print(e);
     return;
