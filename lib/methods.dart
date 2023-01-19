@@ -1,5 +1,48 @@
 import 'dart:io';
 
+import 'utils/files_names.dart';
+
+enum MethodLocal {
+  fr,
+  en;
+
+  String get wordsPath {
+    switch (this) {
+      case MethodLocal.fr:
+        return frenchWords;
+      case MethodLocal.en:
+        return englishWords;
+    }
+  }
+
+  String get countriesPath {
+    switch (this) {
+      case MethodLocal.fr:
+        return frenchCountries;
+      case MethodLocal.en:
+        return englishCountries;
+    }
+  }
+
+  String get cleanWordsPath {
+    switch (this) {
+      case MethodLocal.fr:
+        return frenchCleanWords;
+      case MethodLocal.en:
+        return englishCleanWords;
+    }
+  }
+
+  String get countryColumnSplit {
+    switch (this) {
+      case MethodLocal.fr:
+        return ';';
+      case MethodLocal.en:
+        return ',';
+    }
+  }
+}
+
 /// Get a word from the console
 String getWordFromConsole() {
   String? word = stdin.readLineSync();
@@ -39,8 +82,11 @@ List<String> generateAnagrams(String word) {
 }
 
 /// Check if anagrams exist in the dictionary and return a list of anagrams that exist
-List<String> anagramsThatExistInDictionary(List<String> anagrams) {
-  final dictionaryFile = File('lib/resources/words_clean.json');
+List<String> anagramsThatExistInDictionary(
+  List<String> anagrams, [
+  MethodLocal local = MethodLocal.fr,
+]) {
+  final dictionaryFile = File(local.cleanWordsPath);
   final dictionary = clearDictionary(dictionaryFile.readAsLinesSync());
   List<String> anagramsThatExist = [];
   for (var anagram in anagrams) {

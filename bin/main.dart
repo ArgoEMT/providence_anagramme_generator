@@ -6,7 +6,8 @@ void main(List<String> arguments) {
   print('Welcome to the Providence Anagramme Generator');
   print('------------------------------------');
   print('Generating files...');
-  cleanCsv();
+  cleanCsv(force: true);
+  cleanCsv(force: true, local: MethodLocal.en);
   print('Files generated');
   print('------------------------------------');
   print('Please enter a word to generate anagrams:');
@@ -20,14 +21,23 @@ void main(List<String> arguments) {
   print('------------------------------------');
   print('Generating anagrams...');
   final allAnagrams = generateAnagrams(userWord);
-  final realWords = anagramsThatExistInDictionary(allAnagrams);
+  final realFrenchWords = anagramsThatExistInDictionary(allAnagrams);
+  final realEnglishWords =
+      anagramsThatExistInDictionary(allAnagrams, MethodLocal.en);
   print('Anagrams generated');
   print('------------------------------------');
-  print('Anagrams that exist in the french dictionary:');
-  if (realWords.isEmpty) {
-    print('No anagrams found in the dictionary');
+  print('Anagrams that exist in the French dictionary:');
+  if (realFrenchWords.isEmpty) {
+    print('No anagrams found in the French dictionary');
   } else {
-    print(realWords);
+    print(realFrenchWords);
+  }
+  print('------------------------------------');
+  print('Anagrams that exist in the English dictionary:');
+  if (realEnglishWords.isEmpty) {
+    print('No anagrams found in the English dictionary');
+  } else {
+    print(realEnglishWords);
   }
   print('------------------------------------');
 }
